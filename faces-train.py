@@ -10,7 +10,8 @@ image_dir = os.path.join(BASE_DIR, "images")
 
 
 face_cascade = cv2.CascadeClassifier('cascades/data/haarcascade_frontalface_alt2.xml')
-recognizer = cv2.face.LBPHFaceRecognizer_create()
+#recognizer = cv2.face.LBPHFaceRecognizer_create()
+recognizer = cv2.face.createLBPHFaceRecognizer()
 
 current_id = 0
 label_ids = {}

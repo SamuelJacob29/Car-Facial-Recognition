@@ -6,8 +6,8 @@ face_cascade = cv2.CascadeClassifier('cascades/data/haarcascade_frontalface_alt2
 #eye_cascade = cv2.CascadeClassifier('cascades/data/haarcascade_eye.xml')
 
 
-recognizer = cv2.face.LBPHFaceRecognizer_create()
-recognizer.read("trainner.yml")
+recognizer = cv2.face.createLBPHFaceRecognizer()
+recognizer.load("trainner.yml")
 
 labels = {"person_name": 1}
 with open("labels.pickle", "rb") as f:
@@ -32,13 +32,17 @@ while(True):
 
  		if conf >= 45 and conf <=85:
  			#print(id_)
- 			print(labels[id_])
+ 			#print(labels[id_] == 'samuel')
  			font = cv2.FONT_HERSHEY_SIMPLEX
  			name = labels[id_]
  			color = (255, 255, 255)
  			stroke = 2
  			cv2.putText(frame, name, (x,y), font, 1, color, stroke, cv2.LINE_AA)
 
+		if labels[id_] == 'samuel':
+			print("Start Car")
+		elif labels[id_] != 'samuel':
+			print("Dont Start Car")
  		img_item = "my_image.png"
  		cv2.imwrite(img_item, roi_color)
 
@@ -59,7 +63,10 @@ while(True):
 	cv2.imshow('frame',frame)
 	if cv2.waitKey(20) & 0xFF == ord('q'):
 		break
-
+if labels[id_] == 'samuel':
+	print("Start Car")
+elif labels[id_] != 'samuel':
+	print("Dont Start Car")
 #When Everything is done, release the capture
 cap.release()
 cv2.destroyAllWindows()	
